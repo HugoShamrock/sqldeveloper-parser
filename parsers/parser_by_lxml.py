@@ -16,6 +16,20 @@ class parser(parent_parser):
 
     def get_connections(self):
         connections = etree.parse(self.fn_connections)
+        return [
+            {
+                'name': reference.attrib['name'],
+                'parameters':
+                {
+                    parameter.attrib['addrType']: parameter.xpath('./Contents')[0].text
+                    for parameter in reference.xpath('./RefAddresses/StringRefAddr')
+                }
+            }
+            for reference in connections.xpath('//Reference')
+        ]
+
+    def prt_connections(self):  # obsolete
+        connections = etree.parse(self.fn_connections)
         for reference in connections.xpath('//Reference'):
             print(reference.attrib['name'])
             for parameter in reference.xpath('./RefAddresses/StringRefAddr'):

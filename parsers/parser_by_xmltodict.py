@@ -16,6 +16,20 @@ class parser(parent_parser):
 
     def get_connections(self):
         connections = self.open_read_parse(self.fn_connections)
+        return [
+            {
+                'name': reference['@name'],
+                'parameters':
+                {
+                    parameter['@addrType']: parameter['Contents']
+                    for parameter in reference['RefAddresses']['StringRefAddr']
+                }
+            }
+            for reference in connections['References']['Reference']
+        ]
+
+    def prt_connections(self):  # obsolete
+        connections = self.open_read_parse(self.fn_connections)
         for reference in connections['References']['Reference']:
             print(reference['@name'])
             for parameter in reference['RefAddresses']['StringRefAddr']:
