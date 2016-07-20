@@ -1,11 +1,6 @@
 #!/usr/bin/env python3
 
-# http://stackoverflow.com/questions/1032721/does-anybody-know-what-encrypting-technique-is-jdeveloper-sql-developer-using-to
-# http://blog.pythonaro.com/2012/08/encrypting-and-decrypting-sqldeveloper.html
-# https://github.com/maaaaz/sqldeveloperpassworddecryptor
-# http://stackoverflow.com/questions/5093002/finding-elements-by-attribute-with-lxml
 # http://stackoverflow.com/questions/6677424/how-do-i-import-variable-packages-in-python-like-using-variable-variables-i
-
 
 CONFIG_PATH = '/home/pm/.sqldeveloper/system4.1.2.20.64/'
 FN_CONNECTIONS = '{CP}o.jdeveloper.db.connection.12.2.1.0.42.151001.541/connections.xml'.format(CP=CONFIG_PATH)

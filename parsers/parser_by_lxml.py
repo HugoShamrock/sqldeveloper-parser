@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# http://stackoverflow.com/questions/5093002/finding-elements-by-attribute-with-lxml
+
 try:
     from parsers.parser import parser as parent_parser
 except:
