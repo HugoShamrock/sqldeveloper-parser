@@ -13,11 +13,11 @@ from lxml import etree
 class parser(parent_parser):
 
     def get_db_system_id(self):
-        preferences = etree.parse(self.fn_preferences)
+        preferences = etree.parse(self.filename_preferences)
         return preferences.xpath('//value[@n="db.system.id"]')[0].attrib['v']
 
     def get_connections(self):
-        connections = etree.parse(self.fn_connections)
+        connections = etree.parse(self.filename_connections)
         return [
             {
                 'name': reference.attrib['name'],
@@ -31,7 +31,7 @@ class parser(parent_parser):
         ]
 
     def prt_connections(self):  # obsolete
-        connections = etree.parse(self.fn_connections)
+        connections = etree.parse(self.filename_connections)
         for reference in connections.xpath('//Reference'):
             print(reference.attrib['name'])
             for parameter in reference.xpath('./RefAddresses/StringRefAddr'):

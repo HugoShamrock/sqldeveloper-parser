@@ -11,11 +11,11 @@ import xmltodict
 class parser(parent_parser):
 
     def get_db_system_id(self):
-        preferences = self.open_read_parse(self.fn_preferences)
+        preferences = self.open_read_parse(self.filename_preferences)
         return preferences['ide:preferences']['value']['@v']
 
     def get_connections(self):
-        connections = self.open_read_parse(self.fn_connections)
+        connections = self.open_read_parse(self.filename_connections)
         return [
             {
                 'name': reference['@name'],
@@ -29,7 +29,7 @@ class parser(parent_parser):
         ]
 
     def prt_connections(self):  # obsolete
-        connections = self.open_read_parse(self.fn_connections)
+        connections = self.open_read_parse(self.filename_connections)
         for reference in connections['References']['Reference']:
             print(reference['@name'])
             for parameter in reference['RefAddresses']['StringRefAddr']:
