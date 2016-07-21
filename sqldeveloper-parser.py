@@ -2,6 +2,7 @@
 
 # http://stackoverflow.com/questions/6677424/how-do-i-import-variable-packages-in-python-like-using-variable-variables-i
 # https://github.com/kumzugloom/sqldeveloperpassworddecryptor # inspiration for the future
+# https://github.com/nd-net/sqldeveloperpassworddecryptor # inspiration for the future
 
 FILENAME_CONNECTIONS = '/home/pm/.sqldeveloper/system4.1.2.20.64/o.jdeveloper.db.connection.12.2.1.0.42.151001.541/connections.xml'
 FILENAME_PREFERENCES = '/home/pm/.sqldeveloper/system4.1.2.20.64/o.sqldeveloper.12.2.0.20.64/product-preferences.xml'
