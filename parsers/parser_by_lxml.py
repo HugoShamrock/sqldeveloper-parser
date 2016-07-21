@@ -29,10 +29,3 @@ class parser(parent_parser):
             }
             for reference in connections.xpath('//Reference')
         ]
-
-    def prt_connections(self):  # obsolete
-        connections = etree.parse(self.filename_connections)
-        for reference in connections.xpath('//Reference'):
-            print(reference.attrib['name'])
-            for parameter in reference.xpath('./RefAddresses/StringRefAddr'):
-                print('\t', parameter.attrib['addrType'], '=', parameter.xpath('./Contents')[0].text)

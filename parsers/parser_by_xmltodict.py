@@ -28,13 +28,6 @@ class parser(parent_parser):
             for reference in connections['References']['Reference']
         ]
 
-    def prt_connections(self):  # obsolete
-        connections = self.open_read_parse(self.filename_connections)
-        for reference in connections['References']['Reference']:
-            print(reference['@name'])
-            for parameter in reference['RefAddresses']['StringRefAddr']:
-                print('\t', parameter['@addrType'], '=', parameter['Contents'])
-
     def open_read_parse(self, filename):
         with open(filename, mode='r', encoding='utf-8') as f:
             return xmltodict.parse(f.read())
