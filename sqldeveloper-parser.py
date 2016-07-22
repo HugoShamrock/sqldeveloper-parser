@@ -13,10 +13,13 @@ VERSION = 4  # 3 | 4
 def decrypt_connections(version, parsed_data):
     decrypt = getattr(__import__('decryptors.decryptor_{}'.format(version), fromlist=['']), 'decrypt')
     for connection in parsed_data.connections:
-        connection['parameters']['.password'] = decrypt(
-            connection['parameters']['password'],
-            parsed_data.db_system_id,
-        )
+        try:
+            connection['parameters']['.password'] = decrypt(
+                connection['parameters']['password'],
+                parsed_data.db_system_id,
+            )
+        except:
+            connection['parameters']['.password'] = None
     return parsed_data.connections
 
 
@@ -34,6 +37,18 @@ def main():
     decrypted_connections = decrypt_connections(version=VERSION, parsed_data=parsed_data)
     # from pprint import pprint;pprint(decrypted_connections)
     [print(c['parameters']['.password'], '\t', c['name']) for c in decrypted_connections]
+    for c in decrypted_connections:
+        try:
+            sid = c['parameters']['sid']
+        except:
+            sid = '**{}**'.format(c['parameters']['customUrl'])
+        print('pass insert company/{}/{}/{}/{}\t#\t{}'.format(
+            c['parameters']['RaptorConnectionType'],
+            c['parameters']['hostname'],
+            sid,
+            c['parameters']['user'],
+            c['parameters']['.password'],
+        ))
 
 
 if __name__ == '__main__':

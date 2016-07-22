@@ -7,7 +7,7 @@ import pyDes
 import binascii
 
 
-def decrypt(cipherHex):
+def decrypt(cipherHex, db_system_id):
     cipherText = binascii.unhexlify(cipherHex)
     assert cipherText[0] == 5
     key = cipherText[1:9]
