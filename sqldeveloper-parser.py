@@ -49,6 +49,9 @@ def main():
             c['parameters']['user'],
             c['parameters']['.password'],
         ))
+    # select * from sys.link$ order by host, userid, password, owner#
+    # decrypt = getattr(__import__('decryptors.decryptor_3', fromlist=['']), 'decrypt')
+    # print(decrypt('05x', ''))
 
 
 if __name__ == '__main__':
