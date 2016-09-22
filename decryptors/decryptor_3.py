@@ -23,6 +23,10 @@ def encrypt(plainText):
     cipherHex = binascii.hexlify(cipherText)
     return cipherHex
 
+
+def test(encrypted, decrypted):
+    assert decrypt(encrypt(decrypt(encrypted))) == decrypted
+
+
 if __name__ == '__main__':
-    hash = '0527C290B40C41D71139B5E7A4446E94D7678359087249A463'
-    assert(decrypt(encrypt(decrypt(hash)))) == 'SAILBOAT'
+    test('0527C290B40C41D71139B5E7A4446E94D7678359087249A463', 'SAILBOAT')

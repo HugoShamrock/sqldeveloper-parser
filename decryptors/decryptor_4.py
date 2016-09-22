@@ -23,8 +23,10 @@ def decrypt(encrypted, db_system_id):
     decrypted = cipher.decrypt(encrypted)
     return unpad(decrypted).decode('utf-8')
 
+
+def test(encrypted, decrypted, db_system_id):
+    assert decrypt(encrypted, db_system_id) == decrypted
+
+
 if __name__ == '__main__':
-    assert decrypt(
-        encrypted='rZOwZ6vE5zk=',
-        db_system_id='6e0c2564-1351-4df9-b165-b52cbc74d258',
-    ) == 'heslo'
+    test('rZOwZ6vE5zk=', 'heslo', '6e0c2564-1351-4df9-b165-b52cbc74d258')

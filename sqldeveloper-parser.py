@@ -27,9 +27,14 @@ def parse_data(parser_name):
         filename_preferences=FILENAME_PREFERENCES,
     )
 
-if __name__ == '__main__':
-    print('#', 'version={}'.format(VERSION), '++', 'parser_name={}'.format(PARSER_NAME))
+
+def main():
+    # print('#', 'version={}'.format(VERSION), '++', 'parser_name={}'.format(PARSER_NAME))
     parsed_data = parse_data(parser_name=PARSER_NAME)
     decrypted_connections = decrypt_connections(version=VERSION, parsed_data=parsed_data)
     # from pprint import pprint;pprint(decrypted_connections)
     [print(c['parameters']['.password'], '\t', c['name']) for c in decrypted_connections]
+
+
+if __name__ == '__main__':
+    main()
