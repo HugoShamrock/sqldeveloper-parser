@@ -4,9 +4,11 @@
 # https://github.com/kumzugloom/sqldeveloperpassworddecryptor # inspiration for the future
 # https://github.com/nd-net/sqldeveloperpassworddecryptor # inspiration for the future
 
-# FILENAME_CONNECTIONS = '/home/pm/.sqldeveloper/system4.1.2.20.64/o.jdeveloper.db.connection.12.2.1.0.42.151001.541/connections.xml'
-# FILENAME_PREFERENCES = '/home/pm/.sqldeveloper/system4.1.2.20.64/o.sqldeveloper.12.2.0.20.64/product-preferences.xml'
+from pprint import pprint as pp
+
+# FILENAME_CONNECTIONS = '~/.sqldeveloper/system4.1.2.20.64/o.jdeveloper.db.connection.12.2.1.0.42.151001.541/connections.xml'
 FILENAME_CONNECTIONS = '~/.sqldeveloper/system4.1.5.21.78/o.jdeveloper.db.connection.12.2.1.0.42.151001.541/connections.xml'
+# FILENAME_PREFERENCES = '~/.sqldeveloper/system4.1.2.20.64/o.sqldeveloper.12.2.0.20.64/product-preferences.xml'
 FILENAME_PREFERENCES = '~/.sqldeveloper/system4.1.5.21.78/o.sqldeveloper.12.2.0.21.78/product-preferences.xml'
 PARSER_NAME = 'parser_by_lxml'  # 'parser' | 'parser_by_lxml' | 'parser_by_xmltodict'
 VERSION = 4  # 3 | 4
@@ -33,12 +35,15 @@ def parse_data(parser_name):
     )
 
 
-def main():
-    # print('#', 'version={}'.format(VERSION), '++', 'parser_name={}'.format(PARSER_NAME))
-    parsed_data = parse_data(parser_name=PARSER_NAME)
-    decrypted_connections = decrypt_connections(version=VERSION, parsed_data=parsed_data)
-    # from pprint import pprint;pprint(decrypted_connections)
+def pp_header(parsed_data, decrypted_connections):
+    print('#', 'version={}'.format(VERSION), '++', 'parser_name={}'.format(PARSER_NAME))
+
+
+def pp_passwords(parsed_data, decrypted_connections):
     [print(c['parameters']['.password'], '\t', c['name']) for c in decrypted_connections]
+
+
+def pp_pass(parsed_data, decrypted_connections):
     for c in decrypted_connections:
         try:
             sid = c['parameters']['sid']
@@ -51,11 +56,16 @@ def main():
             c['parameters']['user'],
             c['parameters']['.password'],
         ))
+
+
+def pp_version3(parsed_data, decrypted_connections):
     # select * from sys.link$ order by host, userid, password, owner#
     # decrypt = getattr(__import__('decryptors.decryptor_3', fromlist=['']), 'decrypt')
     # print(decrypt('05x', ''))
-    from pprint import pprint as pp
-    # pp(decrypted_connections)
+    pass
+
+
+def pp_validate_names(parsed_data, decrypted_connections):
     for c in decrypted_connections:
         try:
             name1 = '{name}'.format(name=c['name'])
@@ -79,6 +89,16 @@ def main():
             except:
                 pp(c)
 
+
+def main():
+    parsed_data = parse_data(parser_name=PARSER_NAME)
+    decrypted_connections = decrypt_connections(version=VERSION, parsed_data=parsed_data)
+    # pp_header(parsed_data, decrypted_connections)
+    pp(decrypted_connections)
+    # pp_passwords(parsed_data, decrypted_connections)
+    # pp_pass(parsed_data, decrypted_connections)
+    # pp_version3(parsed_data, decrypted_connections)
+    # pp_validate_names(parsed_data, decrypted_connections)
 
 
 if __name__ == '__main__':
