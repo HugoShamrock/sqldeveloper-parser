@@ -55,7 +55,30 @@ def main():
     # decrypt = getattr(__import__('decryptors.decryptor_3', fromlist=['']), 'decrypt')
     # print(decrypt('05x', ''))
     from pprint import pprint as pp
-    pp(decrypted_connections)
+    # pp(decrypted_connections)
+    for c in decrypted_connections:
+        try:
+            name1 = '{name}'.format(name=c['name'])
+            name2 = '{hostname}@{sid}@{user}'.format(**c['parameters'])
+            if name1.split()[0] != name2:
+                print(name1, name2)
+                # pp(c)
+        except:
+            try:
+                customUrl = c['parameters']['customUrl']
+                customUrl = customUrl.replace('jdbc:oracle:thin:@', '')
+                customUrl = customUrl.replace('jdbc:mysql://', '')
+                customUrl = customUrl.replace('jdbc:jtds:sqlserver://', '')
+                customUrl = customUrl.replace(':1521/', '@')
+                customUrl = customUrl.replace(':3306/', '@')
+                customUrl = customUrl.replace(':1433/', '@')
+                name2 = '{customUrl}@{user}'.format(customUrl=customUrl, user=c['parameters']['user'])
+                if name1.split()[0] != name2:
+                    print(name1, name2)
+                    # pp(c)
+            except:
+                pp(c)
+
 
 
 if __name__ == '__main__':
