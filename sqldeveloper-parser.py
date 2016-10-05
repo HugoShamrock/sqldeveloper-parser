@@ -4,8 +4,10 @@
 # https://github.com/kumzugloom/sqldeveloperpassworddecryptor # inspiration for the future
 # https://github.com/nd-net/sqldeveloperpassworddecryptor # inspiration for the future
 
-FILENAME_CONNECTIONS = '/home/pm/.sqldeveloper/system4.1.2.20.64/o.jdeveloper.db.connection.12.2.1.0.42.151001.541/connections.xml'
-FILENAME_PREFERENCES = '/home/pm/.sqldeveloper/system4.1.2.20.64/o.sqldeveloper.12.2.0.20.64/product-preferences.xml'
+# FILENAME_CONNECTIONS = '/home/pm/.sqldeveloper/system4.1.2.20.64/o.jdeveloper.db.connection.12.2.1.0.42.151001.541/connections.xml'
+# FILENAME_PREFERENCES = '/home/pm/.sqldeveloper/system4.1.2.20.64/o.sqldeveloper.12.2.0.20.64/product-preferences.xml'
+FILENAME_CONNECTIONS = '~/.sqldeveloper/system4.1.5.21.78/o.jdeveloper.db.connection.12.2.1.0.42.151001.541/connections.xml'
+FILENAME_PREFERENCES = '~/.sqldeveloper/system4.1.5.21.78/o.sqldeveloper.12.2.0.21.78/product-preferences.xml'
 PARSER_NAME = 'parser_by_lxml'  # 'parser' | 'parser_by_lxml' | 'parser_by_xmltodict'
 VERSION = 4  # 3 | 4
 
@@ -52,6 +54,8 @@ def main():
     # select * from sys.link$ order by host, userid, password, owner#
     # decrypt = getattr(__import__('decryptors.decryptor_3', fromlist=['']), 'decrypt')
     # print(decrypt('05x', ''))
+    from pprint import pprint as pp
+    pp(decrypted_connections)
 
 
 if __name__ == '__main__':
