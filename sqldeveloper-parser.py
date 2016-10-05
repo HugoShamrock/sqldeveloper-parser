@@ -65,27 +65,37 @@ def pp_version3(parsed_data, decrypted_connections):
     pass
 
 
+def pp_testing(name1, name2, c):
+    if name1 != name2:
+        print(name1, name2)
+        # pp(c)
+
+
+def pp_replace(text):
+    parrents = [
+        ('jdbc:oracle:thin:@', ''),
+        ('jdbc:mysql://', ''),
+        ('jdbc:jtds:sqlserver://', ''),
+        (':1521/', '@'),
+        (':3306/', '@'),
+        (':1433/', '@'),
+    ]
+    for parrent in parrents:
+        text = text.replace(*parrent)
+    return text
+
+
 def pp_validate_names(parsed_data, decrypted_connections):
     for c in decrypted_connections:
         try:
-            name1 = '{name}'.format(name=c['name'])
+            name1 = '{name}'.format(name=c['name']).split()[0]
             name2 = '{hostname}@{sid}@{user}'.format(**c['parameters'])
-            if name1.split()[0] != name2:
-                print(name1, name2)
-                # pp(c)
+            pp_testing(name1, name2, c)
         except:
             try:
-                customUrl = c['parameters']['customUrl']
-                customUrl = customUrl.replace('jdbc:oracle:thin:@', '')
-                customUrl = customUrl.replace('jdbc:mysql://', '')
-                customUrl = customUrl.replace('jdbc:jtds:sqlserver://', '')
-                customUrl = customUrl.replace(':1521/', '@')
-                customUrl = customUrl.replace(':3306/', '@')
-                customUrl = customUrl.replace(':1433/', '@')
+                customUrl = pp_replace(c['parameters']['customUrl'])
                 name2 = '{customUrl}@{user}'.format(customUrl=customUrl, user=c['parameters']['user'])
-                if name1.split()[0] != name2:
-                    print(name1, name2)
-                    # pp(c)
+                pp_testing(name1, name2, c)
             except:
                 pp(c)
 
